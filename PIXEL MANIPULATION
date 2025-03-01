@@ -1,0 +1,33 @@
+# prodiggy_CS_02
+PIXELMANIPULATION
+
+
+def encrypt_decrypt_image(input_path, output_path, key):
+    img = Image.open(input_path)
+    img_array = np.array(img)
+    encrypted_array = img_array ^ key  # XOR operation on each pixel
+
+    encrypted_img = Image.fromarray(encrypted_array)
+    encrypted_img.save(output_path)
+
+    print(f"Image saved at {output_path}")
+
+#User Input
+mode = input("Type 'encrypt' to encrypt or 'decrypt' to decrypt: ").lower()
+input_path = input("Enter input image file path: ")
+output_path = input("Enter output image file path: ")
+key = int(input("Enter a numeric key (0-255): "))  # XOR key must be 0-255
+def encrypt_decrypt_image(input_path, output_path, key):
+    with open(input_path, "rb") as img:  # Open in binary mode
+        img_array = img.read()  # Read file content as bytes
+
+    encrypted_array = bytes([b ^ key for b in img_array])  # XOR operation on each byte
+
+    with open(output_path, "wb") as encrypted_img:  # Write as binary file
+        encrypted_img.write(encrypted_array)
+#Encryption or decryption
+if mode in ["encrypt", "decrypt"]:
+    encrypt_decrypt_image(input_path, output_path, key)
+else:
+    print("Invalid mode! Choose 'encrypt' or 'decrypt'.")
+
